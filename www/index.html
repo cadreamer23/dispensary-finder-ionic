@@ -15,7 +15,7 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&amp;sensor=true&amp;libraries=places"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -27,15 +27,29 @@
   </head>
 
   <body ng-app="starter" ng-controller="MapCtrl">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Map</h1>
+    <ion-header-bar class="bar header ">
+      <img class="logo" src="img/a1.png" style="height:75px;">
+      <div id="search-bar" style="height:47px;">
+        <div class="item-input search">
+          <label class="item-input-wrapper" id="search-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" id="pac-input" placeholder="Search" ng-model="query" ng-change="search()">
+          </label>
+        </div>
+      </div>
+      <button class="icon menubtn ion-navicon button button-clear extra" ng-click="toggleMenu()" ng-model="selector"></button>
+      <ul ng-show="menuView" class="menu-list list">
+        <li class="item" ng-click="selector=&apos;deals&apos;;getDistribution()">deals</li>
+        <li class="item" ng-click="selector=&apos;veteranDiscount&apos;;getDistribution()">veteran discounts</li>
+        <li class="item" ng-click="selector=&apos;strains&apos;;getDistribution()">strains</li>
+      </ul>
     </ion-header-bar>
 
     <ion-content scroll="false">
-      <map on-create="mapCreated(map)"></map>
+      <map id="map-canvas" on-create="mapCreated(map)"></map>
     </ion-content>
 
-    <ion-footer-bar class="bar-stable">
+    <ion-footer-bar class="footer ">
       <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
     </ion-footer-bar>
   </body>
